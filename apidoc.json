@@ -1,0 +1,10 @@
+{
+  "name": "Node-eCommerce",
+  "version": "0.0.1",
+  "description": "Api docs of Node-ecommerce",
+  "title": "Node-eCommerce",
+  "url": "http://localhost:4000/api",
+  "template": {
+    "forceLanguage": "en"
+  }
+}

@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  node-ecommerce-api:
+    build:
+      context: .
+    volumes:
+      - .:/app
+      - /app/node_modules/
+
+    ports:
+      - "4000:4000"
+
+    env_file:
+      - .env
+
+    environment:
+      - MONGO_URL_DEV=mongodb://mongo/node-ecommerce-dev
+      - MONGO_URL_PROD=mongodb://mongo/node-ecommerce-prod
+      - POSTGRES_URL_DEV=postgres://node_ecommerce:secret123@postgres/node_ecommerce_dev
+      - POSTGRES_URL_PROD=postgres://node_ecommerce:secret123@postgres/node_ecommerce_prod
+      - NODE_ENV=production
+
+    depends_on:
+      - mongo
+      - postgres
+
+  mongo:
+    image: "mongo"
+    restart: always
+    ports:
+      - "27017:27017"
+  postgres:
+    build:
+      context: ./sql
+    restart: always
+    environment:
+      - POSTGRES_USER=node_ecommerce
+      - POSTGRES_PASSWORD=secret123
